@@ -8,7 +8,9 @@ class DemoController extends Controller
 {
      public function index()
     {
-        return "Method GET: Index";
+      
+        return view('templete');
+        
     }
 
     public function demotwo()

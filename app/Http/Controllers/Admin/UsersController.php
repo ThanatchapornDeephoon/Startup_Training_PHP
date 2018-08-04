@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\User as UserMod;
+use App\Model\Shop as ShopMod;
+use App\Model\Product as productMod;
+
 class UsersController extends Controller
 {
     /**
@@ -15,20 +18,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        
-    
-        $mods = UserMod::where('active', 1)
-               ->where('city','Bangkok')
-               ->orderBy('name', 'desc')
-               ->get();
+          
+$mods = UserMod::all();
+$mods = UserMod::paginate(15);
 
-        
-       /// $mods = UserMod::find([1, 2, 3]);
-        
-        foreach ($mods as $item) {
-            echo $item->name." ".$item->surname."<br />";
+        return view('admin.user.lists',compact('mods'));
 
-        }
 
     }
 
@@ -39,8 +34,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-    
-
+            
 
     }
 
@@ -51,9 +45,13 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        
-
+    {        
+        //dd(Srequest); exit;
+        $mod = new UserMod;
+        $mod->name = $request->name;
+        $mod->email = $request->email;
+        $mod->password = bcrypt($request->password);
+        $mod->save();
     }
 
     /**
@@ -64,13 +62,29 @@ class UsersController extends Controller
      */
     public function show($id)
     {
+        //$mod = UserMod::find($id);
+        // echo $mod->name;
+        //$shop = ShopMod::find($id);
+        //echo $shop->name;
+        //echo "<br />" ;
+        //echo $shop->user->name;
+
+       // $products = ShopMod::find($id)->products;
+ 
+       
+       /// foreach ($products as $product) {
+         ///   echo $product->name;
+          //  echo "<br />" ;
+       // }
+
+        $product = productMod::find($id);
+        echo " Product Name Is :". $product->name;
+        echo "<br /><br />";
+        echo "Shop Owner Is :" .$product->shop->name;
+           
+    }
         
 
-
-    
-
-
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -80,7 +94,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        
+
         //
+
+
     }
 
     /**
@@ -92,7 +110,18 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+            //return "ABC";
+
+            //dd($request); exit;
+            $mod = UserMod::find($id);
+            $mod->name = $request->name;
+            $mod->email = $request->email;
+            $mod->password = bcrypt($request->password);
+            $mod->save();
+
+            return "เรียบร้อย" ;
+
     }
 
     /**
@@ -103,6 +132,10 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $mod = UserMod::find($id);
+        $mod->delete();
+        return "สำเร็จ";
+
     }
 }
