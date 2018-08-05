@@ -20,7 +20,6 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="submit" value="Delete"  class="btn btn-danger" data-toggle="modal" data-target="#modal_{{ $name }}_{{ $id }}">
                 </form>
-
         </div>
         </div>
     </div>

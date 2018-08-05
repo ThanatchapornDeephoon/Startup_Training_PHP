@@ -14,7 +14,7 @@
 <div class="card mb-3">
   <div class="card-header">Create User</div>
   <div class="card-body">
-    <form method="POST" action="#">
+    <form method="POST" action="{{URL::to('admin/users')}}">
 
     <div class="card border-dark">
           <div class="card-header">
@@ -24,9 +24,10 @@
               <div class="form-group">
                 <label for="email">Email address</label>
                 <input class="form-control" id="email" name="email" type="email" value="" aria-describedby="emailHelp" placeholder="Enter email">
-                <!--@if ($errors->has('email'))
+                @if ($errors->has('email'))
                     <span class="text-danger">{{ $errors->first('email') }}</span>
-                @endif-->
+
+                @endif
               </div>
 
               <div class="form-group">
@@ -41,9 +42,9 @@
                   <div class="col-md-6">
                     <label for="confirm_password">Confirm password</label>
                     <input class="form-control" id="confirm_password" name="confirm_password" type="password" placeholder="Confirm password">
-                    <!--@if ($errors->has('confirm_password'))
+                    @if ($errors->has('confirm_password'))
                         <span class="text-danger">{{ $errors->first('confirm_password') }}</span>
-                    @endif-->
+                    @endif
                   </div>
                 </div>
               </div>
@@ -96,9 +97,7 @@
             <label for="city">City</label>
             <select class="form-control" id="city" name="city">
                 <option value="">---- Select ----</option>
-                <option value="bangkok">bangkok</option>
-                <option value="nakornpathom">nakornpathom</option>
-                <!--<option value="bangkok" {{ (old("city") == "bangkok" ? "selected":"") }} >bangkok</option>
+                <option value="bangkok" {{ (old("city") == "bangkok" ? "selected":"") }} >bangkok</option>
                 <option value="nakornpathom"  {{ (old("city") == "nakornpathom" ? "selected":"") }} >nakornpathom</option>-->
             </select>
 
@@ -107,8 +106,8 @@
         </div>
       </div>
 
-      <!--<input type="hidden" name="_method" value="PUT">-->
-      <!--<input type="hidden" name="_token" value="{{ csrf_token() }}">-->
+   
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <input type="submit" value="Submit" class="btn btn-primary">&nbsp;
       <input type="reset" value="Reset" class="btn btn-danger">
 
